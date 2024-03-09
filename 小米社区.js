@@ -24,6 +24,15 @@ unlock();
 //安卓版本高于Android 9
 ////这里的截图有root权限这里不要 start
 const package = "com.xiaomi.vipaccount";
+var startPosX = 305; //滑动拖拽的中点坐标
+var startPosY = 1829;//滑动拖拽的中点坐标
+var blockWidth = 158;//滑块的宽度
+var verImgLeftTop = [195,1065] //验证码图片部分的左上角坐标
+var verImgRightBottom = [1227,1698] //验证码图片部分的右下角坐标
+
+//安卓版本高于Android 9
+////这里的截图有root权限这里不要 start
+const package = "com.xiaomi.vipaccount";
 if(device.sdkInt>28){
     //等待截屏权限申请并同意
     threads.start(function () {
@@ -37,7 +46,6 @@ if (!requestScreenCapture()) {
     exit()
 }
 ////这里的截图有root权限这里不要 end
-
 run();//计时
 //wxts();
 device.wakeUp();//亮屏
@@ -135,11 +143,6 @@ function runTime() {
     }
 }
 
-var startPosX = 305; //滑动拖拽的中点坐标
-var startPosY = 1829;//滑动拖拽的中点坐标
-var blockWidth = 160;//滑块的宽度
-var verImgLeftTop = [195,1065] //验证码图片部分的左上角坐标
-var verImgRightBottom = [1227,1698] //验证码图片部分的右下角坐标
 /**
  * 开始识别
  */
@@ -147,6 +150,7 @@ function startRec() {
     //这里的截图有root的做好换成
     //var img = getScreenImage()
     var img = captureScreen()
+    //var img = automator.takeScreenshot()
     if (img) {
         log("截图成功，进行识别滑块！");
     } else {
@@ -274,8 +278,8 @@ function viewPost() {
             break;
         }
         toastLog("向下滑动查找非视频帖子");
-        const x = deviceWidth / 2,
-            y = (deviceHeight / 4) * 3;
+        const x = device.width / 2,
+            y = (device.height / 4) * 3;
         swipe(x, y, x, y - 500, 500);
     }
 
