@@ -110,6 +110,7 @@ function 主程序1() {
     if (text("已签到").exists()) {
         toastLog("已签到，不再签到");
         killAPP("小米社区")
+        exit()
         return
     }
     className("android.widget.TextView").depth("13").textContains("立即签到").findOne().click();
@@ -118,7 +119,6 @@ function 主程序1() {
     startRec()
     //killAPP("小米社区");
 };
-
 
 
 function run() { //声明运行函数
@@ -167,11 +167,13 @@ function startRec() {
         swipeTryCount = 0;
         toastLog("已签到，不再签到");
         killAPP("小米社区")
+        exit();
         return
     } else {
         swipeTryCount++
         if (swipeTryCount > 3) {
             toastLog("滑动失败")
+            exit();
             return
         }
         startRec()
