@@ -163,7 +163,8 @@ function startRec() {
     console.info("识别结果滑块X坐标：" + x);
     swipe(startPosX, startPosY, x + blockWidth / 2, startPosY, 1300);
     sleep(5000);
-    if (text("已签到").exists()) {
+    var com = text("已签到").findOne(3000)
+    if (com) {
         swipeTryCount = 0;
         toastLog("已签到，不再签到");
         killAPP("小米社区")
